@@ -1,0 +1,28 @@
+name: Run Polus Downloader
+
+on:
+  repository_dispatch:
+    types: [trigger-download]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Chrome and Selenium
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+        pip install selenium
+
+    - name: Run script
+      run: |
+        python downloader.py "${{ github.event.client_payload.url }}"

@@ -1,8 +1,12 @@
 name: Run Polus Downloader
 
 on:
-  repository_dispatch:
-    types: [trigger-download]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Download URL'
+        required: true
+
 
 jobs:
   build:
